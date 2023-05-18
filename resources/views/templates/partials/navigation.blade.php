@@ -20,8 +20,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">О нас</a>
                 </li>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <form method="GET" action="{{ route('search.results') }}" class="form-inline my-2 my-lg-0">
+                    <input name="query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                 </form>
             </ul>
@@ -35,7 +35,7 @@
                         <a href="#" class="nav-link">Обновить профиль</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/" class="nav-link">Выйти</a>
+                        <a href="{{ route('auth.signout') }}" class="nav-link">Выйти</a>
                     </li>
                 @else
                     <li class="nav-item"><a href="{{ route('auth.signup') }}" class="nav-link">Зарегистрироваться</a> </li>

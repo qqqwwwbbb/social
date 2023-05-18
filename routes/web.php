@@ -20,8 +20,16 @@ Route::get('/', 'HomeController@index')->name('home');
 /**
  * Auth
  */
-Route::get('/signup', 'AuthController@getSignup')->name('auth.signup');
-Route::post('/signup', 'AuthController@postSignup');
+Route::get('/signup', 'AuthController@getSignup')->middleware('guest')->name('auth.signup');
+Route::post('/signup', 'AuthController@postSignup')->middleware('guest');
 
-Route::get('/signin', 'AuthController@getSignin')->name('auth.signin');
-Route::post('/signin', 'AuthController@postSignin');
+Route::get('/signin', 'AuthController@getSignin')->middleware('guest')->name('auth.signin');
+Route::post('/signin', 'AuthController@postSignin')->middleware('guest');
+
+Route::get('/signout', 'AuthController@getSignout')->name('auth.signout');
+
+/**
+ * Searchbar
+ */
+
+Route::get('/search', 'SearchController@getResults')->name('search.results');
