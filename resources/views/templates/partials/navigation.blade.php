@@ -12,7 +12,7 @@
                     <a class="nav-link" href="#">Новости<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Друзья</a>
+                    <a class="nav-link" href="{{ route('friend.index') }}">Друзья</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Заметки</a>
