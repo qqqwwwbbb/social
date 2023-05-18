@@ -39,3 +39,6 @@ Route::get('/search', 'SearchController@getResults')->name('search.results');
  */
 
 Route::get('/user/{username}', 'ProfileController@getProfile')->name('profile.index');
+Route::get('/profile/edit', 'ProfileController@getEdit')->middleware('auth')->name('profile.edit');
+Route::post('/profile/edit', 'ProfileController@postEdit')->middleware('auth')->name('profile.edit');
+
