@@ -45,14 +45,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    #получить имя и фамилию
     public function getName()
     {
-        if ($this->first_name && $this->last_name)
-        {
+        if ($this->first_name && $this->last_name) {
             return "{$this->first_name} {$this->last_name}";
         }
-        if ($this->first_name)
-        {
+        if ($this->first_name) {
             return $this->first_name;
         }
 
@@ -84,15 +83,54 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\User', 'friends', 'friend_id', 'user_id');
     }
 
+    #чтобы показывалось например у user1 друг user2, а у user2 в друзьях user1
     public function friends()
     {
         return $this->friendsOfMine()->wherePivot('accepted', true)->get()
-            ->merge($this->friendsOfMine()->wherePivot('accepted', true)->get());
+            ->merge($this->friendOf()->wherePivot('accepted', true)->get());
     }
 
     public function friendRequests()
     {
         return $this->friendsOfMine()->wherePivot('accepted', false)->get();
+    }
+
+    #запрос на ожидание друга
+    public function friendRequestsPending()
+    {
+        return $this->friendOf()->wherePivot('accepted', false)->get();
+    }
+
+    #есть запрос на добавление в друзья
+    public function hasFriendRequestPending(User $user)
+    {
+        return (bool) $this->friendRequestsPending()->where('id', $user->id)->count();
+    }
+
+    #получил запрос о дружбе
+    public function hasFriendRequestReceived(User $user)
+    {
+        return (bool) $this->friendRequests()->where('id', $user->id)->count();
+    }
+
+    #добавить друга
+    public function addFriend(User $user)
+    {
+        $this->friendOf()->attach($user->id);
+    }
+
+    #принять запрос на дружбу
+    public function acceptFriendRequest(User $user)
+    {
+        $this->friendRequests()->where('id', $user->id)->first()->pivot->update([
+            'accepted' => true
+        ]);
+    }
+
+    #дружит с
+    public function isFriendWith(User $user)
+    {
+        return (bool) $this->friends()->where('id', $user->id)->count();
     }
 
 }
