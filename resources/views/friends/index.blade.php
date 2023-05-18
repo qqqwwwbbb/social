@@ -18,7 +18,14 @@
 
         <div class="col-lg-6">
             <h3>Запросы в друзья</h3>
-        </div>
 
+            @if (!$requests->count())
+                <p>У вас нет запросов в друзья.</p>
+            @else
+                @foreach($requests as $user)
+                    @include('user.partials.userblock')
+                @endforeach
+            @endif
+        </div>
     </div>
 @endsection
