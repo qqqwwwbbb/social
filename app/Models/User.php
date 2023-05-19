@@ -73,6 +73,12 @@ class User extends Authenticatable
         return "https://www.gravatar.com/avatar/{{ md5($this->email)?d=mm&s=50 }}";
     }
 
+    #пользователю принадлежит статус (айдишник пользователя на статус)
+    public function statuses()
+    {
+        return $this->hasMany('App\Models\Status', 'user_id');
+    }
+
     public function friendsOfMine()
     {
         return $this->belongsToMany('App\Models\User', 'friends', 'user_id', 'friend_id');
