@@ -13,7 +13,7 @@ class HomeController extends Controller
         #метод pluck извлекает все значения по заданному ключу, у нас тут вывод новостей либо вывод новостей друзей.
         #пагинация 10 сортировка по дате DESC
         if ( Auth::check() ) {
-            $statuses = Status::where(function($query){
+            $statuses = Status::notReply()->where(function($query){
                 return $query->where('user_id', Auth::user()->id)
                     ->orWhereIn('user_id', Auth::user()->friends()->pluck('id'));
             })
