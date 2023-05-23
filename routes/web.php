@@ -57,3 +57,5 @@ Route::post('/friends/delete/{username}', 'FriendController@postDelete')->middle
 Route::post('/status', 'StatusController@postStatus')->middleware('auth')->name('status.post');
 Route::post('/status/{statusId}/reply', 'StatusController@postReply')->middleware('auth')->name('status.reply');
 
+Route::get('status/{statusId}/like', 'StatusController@getLike')->middleware('auth')->name('status.like');;
+
