@@ -44,9 +44,11 @@
             @if ( $status->user->id !== Auth::user()->id )
                 <li class="list-inline-item">
                     <a href="{{ route('status.like', ['statusId' => $status->id]) }}">Лайк</a>
-                    </li>
-                <li class="list-inline-item">10 Лайков</li>
+                </li>
             @endif
+            <li class="list-inline-item">
+                {{ $status->likes->count() }} {{ Str::plural('like', $status->likes->count()) }}
+            </li>
         </ul>
 
                     @foreach($status->replies as $reply)
@@ -67,8 +69,10 @@
                                             <li class="list-inline-item">
                                                 <a href="{{ route('status.like', ['statusId' => $reply->id]) }}">Лайк</a>
                                             </li>
-                                            <li class="list-inline-item">10 Лайков</li>
                                         @endif
+                                        <li class="list-inline-item">
+                                            {{ $reply->likes->count() }} {{ Str::plural('like', $reply->likes->count()) }}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
