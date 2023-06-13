@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-#auth controller
+#auth controller || sign up
 class AuthController extends Controller
 {
     public function getSignup()
@@ -20,7 +20,12 @@ class AuthController extends Controller
             'email' => 'required|unique:users|email|max:255',
             'username' => 'required|unique:users|alpha_dash|max:20',
             'password' => 'required|min:6',
-        ]);
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+            [
+                'g-recaptcha-response.required' => 'Пройдите проверку на робота!'
+            ]
+        );
 
         User::create([
             'email' => $request->input('email'),
@@ -43,7 +48,12 @@ class AuthController extends Controller
         $this->validate($request, [
             'email' => 'required|max:255',
             'password' => 'required|min:6',
-        ]);
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+            [
+                'g-recaptcha-response.required' => 'Пройдите проверку на робота!'
+            ]
+        );
 
         if(!Auth::attempt( $request->only(['email', 'password']), $request->has('remember')))
         {

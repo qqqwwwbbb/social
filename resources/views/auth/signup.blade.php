@@ -42,6 +42,12 @@
                 </span>
             @endif
         </div>
+
+        <div class="mt-4">
+            {!! NoCaptcha::renderJs() !!}
+            {!! NoCaptcha::display() !!}
+        </div>
+
         <button type="submit" class="btn btn-primary">Создать аккаунт</button>
     </form>
     </div>

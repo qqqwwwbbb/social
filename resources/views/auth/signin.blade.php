@@ -36,6 +36,10 @@
                         <label class="custom-control-label" for="remember">Запомнить меня</label>
                     </div>
                 </div>
+                <div class="mt-4">
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::display() !!}
+                </div>
                 <button type="submit" class="btn btn-primary">Войти</button>
             </form>
         </div>
